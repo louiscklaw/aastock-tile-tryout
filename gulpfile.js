@@ -29,7 +29,7 @@ function html( done ) {
 
 function css( done ) {
   // return
-  src( 'src/pug/*.css' )
+  src( 'src/pug/*.less' )
     .pipe( less() )
     .pipe( minifyCSS() )
     .pipe( dest( './docs/css' ) );
@@ -64,8 +64,8 @@ exports.default = function () {
     }
   } );
 
-  gulp.watch( 'src/pug/*.js', series(js) );
-  gulp.watch( 'src/pug/*.css', series(css) );
+  gulp.watch( ['src/pug/*.js'], series([js, html]) );
+  gulp.watch( ['src/pug/*.less'], series([css, html]) );
   gulp.watch( ['src/pug/*.pug'], series( html ) );
 
 
